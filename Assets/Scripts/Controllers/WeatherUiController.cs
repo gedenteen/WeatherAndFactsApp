@@ -37,7 +37,7 @@ public class WeatherUiController : MonoBehaviour
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            List<WeatherPeriod> weatherPeriods = await _weatherService.GetWeatherDataAsync();
+            List<WeatherPeriod> weatherPeriods = await _weatherService.GetWeatherDataViaRequestQueue();
 
             if (weatherPeriods == null)
             {

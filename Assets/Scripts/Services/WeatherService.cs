@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -9,6 +10,7 @@ using Zenject;
 public class WeatherService
 {
     [Inject] private ApiLinks _apiLinks;
+    [Inject] private RequestsQueue _requestsQueue;
 
     [Inject]
     public void Construct()
@@ -16,17 +18,44 @@ public class WeatherService
         Debug.Log($"WeatherService: Weather api = {_apiLinks.Weather}");
     }
 
-    public async UniTask<List<WeatherPeriod>> GetWeatherDataAsync()
+    private async UniTask<List<WeatherPeriod>> FetchWeatherDataAsync(CancellationToken ct)
     {
-        var response = await UnityWebRequest.Get(_apiLinks.Weather).SendWebRequest();
+        // Request to API
+        var request = UnityWebRequest.Get(_apiLinks.Weather);
 
-        if (response.result == UnityWebRequest.Result.Success)
+        try
         {
-            var weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response.downloadHandler.text);
-            return weatherResponse?.Properties?.Periods;
-        }
+            // Await response with CancellationToken
+            await request.SendWebRequest().ToUniTask(null, PlayerLoopTiming.Update, cancellationToken: ct);
 
-        Debug.LogError($"WeatherService: Failed to fetch weather data: {response.error}");
-        return null;
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                var weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(request.downloadHandler.text);
+                return weatherResponse?.Properties?.Periods;
+            }
+
+            // If request was not successful
+            Debug.LogError($"WeatherService: Failed to fetch weather data: {request.error}");
+            return null;
+        }
+        catch (OperationCanceledException)
+        {
+            // This happens if the request was canceled via the CancellationToken
+            Debug.LogWarning("WeatherService: Weather request canceled");
+            return null; 
+        }
+        catch (Exception e)
+        {
+            // Any other error (e.g. network, deserialization, etc.)
+            Debug.LogError($"WeatherService: Exception while fetching weather data: {e}");
+            return null;
+        }
+    }
+
+    public async UniTask<List<WeatherPeriod>> GetWeatherDataViaRequestQueue()
+    {
+        var weatherTask = _requestsQueue.EnqueueRequest(FetchWeatherDataAsync, RequestTag.Weather);
+        var weatherData = await weatherTask;
+        return weatherData;
     }
 }
