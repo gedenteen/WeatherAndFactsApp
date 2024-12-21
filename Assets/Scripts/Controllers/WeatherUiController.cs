@@ -14,6 +14,7 @@ public class WeatherUiController : MonoBehaviour
     [SerializeField] private WeatherPeriodView _prefabWeatherPeriodView;
 
     [Inject] private Timings _timings;
+    [Inject] private AppStateController _appStateController;
     [Inject] private WeatherService _weatherService;
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -23,7 +24,7 @@ public class WeatherUiController : MonoBehaviour
     private void Construct()
     {
         _cancellationTokenSource = new CancellationTokenSource();
-        UpdateUi(_cancellationTokenSource.Token).Forget();
+        SyncWeatherUiWithState(_cancellationTokenSource.Token).Forget();
     }
 
     private void OnDestroy()
@@ -33,35 +34,43 @@ public class WeatherUiController : MonoBehaviour
         _cancellationTokenSource = null;
     }
 
-    private async UniTask UpdateUi(CancellationToken cancellationToken)
+    private async UniTask SyncWeatherUiWithState (CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
         {
-            List<WeatherPeriod> weatherPeriods = await _weatherService.GetWeatherDataViaRequestQueue();
-
-            if (weatherPeriods == null)
+            if (_appStateController.GetCurrentState() == AppState.ShowingWeather)
             {
-                Debug.LogError("WeatherUiController: can't get weather data");
-                return;
-            }
-
-            Debug.Log($"WeatherUiController: going to show data, " +
-                      $"weatherPeriods.Count={weatherPeriods.Count} _viewPool.Count={_viewPool.Count}");
-
-            int i;
-            for (i = 0; i < weatherPeriods.Count; i++)
-            {
-                WeatherPeriodView weatherPeriodView = GetWeatherPeriodViewByIndex(i);
-                _viewPool[i].SetData(weatherPeriods[i]);
-            }
-
-            // Disable unused items
-            for (i++; i < _viewPool.Count; i++)
-            {
-                _viewPool[i].gameObject.SetActive(false);
+                UpdateUi().Forget();
             }
 
             await UniTask.WaitForSeconds(_timings.SecondsForUpdateWeatherData);
+        }
+    }
+
+    private async UniTask UpdateUi()
+    {
+        List<WeatherPeriod> weatherPeriods = await _weatherService.GetWeatherDataViaRequestQueue();
+
+        if (weatherPeriods == null)
+        {
+            Debug.LogError("WeatherUiController: can't get weather data");
+            return;
+        }
+
+        Debug.Log($"WeatherUiController: going to show data, " +
+                    $"weatherPeriods.Count={weatherPeriods.Count} _viewPool.Count={_viewPool.Count}");
+
+        int i;
+        for (i = 0; i < weatherPeriods.Count; i++)
+        {
+            WeatherPeriodView weatherPeriodView = GetWeatherPeriodViewByIndex(i);
+            _viewPool[i].SetData(weatherPeriods[i]);
+        }
+
+        // Disable unused items
+        for (i++; i < _viewPool.Count; i++)
+        {
+            _viewPool[i].gameObject.SetActive(false);
         }
     }
 

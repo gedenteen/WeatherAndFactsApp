@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Zenject;
+using UniRx;
 
 /// <summary>
 /// Queue that executes all requests in order. 
@@ -12,6 +14,8 @@ using Cysharp.Threading.Tasks;
 /// </summary>
 public class RequestsQueue
 {
+    [Inject] AppStateController _appStateController;
+
     // Internal queue of requests
     private readonly Queue<IRequest> _requests = new Queue<IRequest>();
 
@@ -20,6 +24,33 @@ public class RequestsQueue
     
     // Flag to indicate if we are processing the queue
     private bool _isProcessing;
+
+    private CompositeDisposable _disposables = new CompositeDisposable();
+
+    [Inject]
+    private void Construct()
+    {
+        _appStateController.CurrentState.Subscribe(HandleAppStateChange).AddTo(_disposables);
+    }
+
+    ~RequestsQueue()
+    {
+        _disposables.Dispose();
+    }
+
+    private void HandleAppStateChange(AppState newState)
+    {
+        switch (newState)
+        {
+            case AppState.ShowingWeather:
+                break;
+            default:
+                UnityEngine.Debug.Log($"RequestsQueue: HandleAppStateChange: going to cancel all weather requests");
+                CancelCurrentWeatherRequestIfAny();
+                RemoveAllPendingWeatherRequests();
+                break;
+        }
+    }
 
     /// <summary>
     /// Add a generic request to the queue. 
