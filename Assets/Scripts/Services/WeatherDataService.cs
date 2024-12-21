@@ -14,12 +14,6 @@ public class WeatherDataService
 
     private Dictionary<string, Sprite> _cachedSpritesObtainedFromApi = new Dictionary<string, Sprite>();
 
-    [Inject]
-    public void Construct()
-    {
-        Debug.Log($"WeatherService: Weather api = {_apiLinks.Weather}");
-    }
-
     private async UniTask<List<WeatherPeriod>> FetchWeatherDataAsync(CancellationToken ct)
     {
         // Request to API
@@ -33,23 +27,26 @@ public class WeatherDataService
             if (request.result == UnityWebRequest.Result.Success)
             {
                 var weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(request.downloadHandler.text);
+
+                Debug.Log($"FetchWeatherDataAsync: got count of periods={weatherResponse?.Properties?.Periods.Count}");
+
                 return weatherResponse?.Properties?.Periods;
             }
 
             // If request was not successful
-            Debug.LogError($"WeatherService: Failed to fetch weather data: {request.error}");
+            Debug.LogError($"FetchWeatherDataAsync: Failed to fetch weather data: {request.error}");
             return null;
         }
         catch (OperationCanceledException)
         {
             // This happens if the request was canceled via the CancellationToken
-            Debug.LogWarning("WeatherService: Weather request canceled");
+            Debug.LogWarning("FetchWeatherDataAsync: Weather request canceled");
             return null; 
         }
         catch (Exception e)
         {
             // Any other error (e.g. network, deserialization, etc.)
-            Debug.LogError($"WeatherService: Exception while fetching weather data: {e}");
+            Debug.LogError($"FetchWeatherDataAsync: Exception while fetching weather data: {e}");
             return null;
         }
     }
@@ -87,19 +84,19 @@ public class WeatherDataService
             }
 
             // If request was not successful
-            Debug.LogError($"WeatherService: LoadIconAsync: Failed to fetch data: {request.error}");
+            Debug.LogError($"WeatherDataService: LoadIconAsync: Failed to fetch data: {request.error}");
             return null;
         }
         catch (OperationCanceledException)
         {
             // This happens if the request was canceled via the CancellationToken
-            Debug.LogWarning("WeatherService: LoadIconAsync: request canceled");
+            Debug.LogWarning("WeatherDataService: LoadIconAsync: request canceled");
             return null; 
         }
         catch (Exception e)
         {
             // Any other error (e.g. network, deserialization, etc.)
-            Debug.LogError($"WeatherService: LoadIconAsync: Exception while fetching data: {e}");
+            Debug.LogError($"WeatherDataService: LoadIconAsync: Exception while fetching data: {e}");
             return null;
         }
     }

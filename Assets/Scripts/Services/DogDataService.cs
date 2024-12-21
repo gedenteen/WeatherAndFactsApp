@@ -12,12 +12,6 @@ public class DogDataService
     [Inject] private ApiLinks _apiLinks;
     [Inject] private RequestsQueue _requestsQueue;
 
-    [Inject]
-    public void Construct()
-    {
-        Debug.Log($"DogDataService: dog facts api = {_apiLinks.DogFacts}");
-    }
-
     private async UniTask<DogApiResponse> FetchDogBreedsDataAsync(CancellationToken ct)
     {
         // Request to API
@@ -28,7 +22,7 @@ public class DogDataService
             // Await response with CancellationToken
             await request.SendWebRequest().ToUniTask(null, PlayerLoopTiming.Update, ct);
 
-            Debug.Log($"FetchDogBreedsDataAsync: got {request.downloadHandler.text}");
+            // Debug.Log($"FetchDogBreedsDataAsync: got {request.downloadHandler.text}");
 
             if (request.result == UnityWebRequest.Result.Success)
             {

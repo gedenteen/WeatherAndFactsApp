@@ -57,8 +57,8 @@ public class WeatherUiController : MonoBehaviour
             return;
         }
 
-        Debug.Log($"WeatherUiController: going to show data, " +
-                    $"weatherPeriods.Count={weatherPeriods.Count} _viewPool.Count={_viewPool.Count}");
+        // Debug.Log($"WeatherUiController: going to show data, " +
+        //             $"weatherPeriods.Count={weatherPeriods.Count} _viewPool.Count={_viewPool.Count}");
 
         int i;
         for (i = 0; i < weatherPeriods.Count; i++)
