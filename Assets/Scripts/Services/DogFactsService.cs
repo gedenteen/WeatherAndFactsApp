@@ -18,7 +18,7 @@ public class DogFactsService
         Debug.Log($"DogFactsService: dog facts api = {_apiLinks.DogFacts}");
     }
 
-    private async UniTask<List<string>> FetchDogFactsDataAsync(CancellationToken ct)
+    private async UniTask<DogApiResponse> FetchDogFactsDataAsync(CancellationToken ct)
     {
         // Request to API
         var request = UnityWebRequest.Get(_apiLinks.DogFacts);
@@ -33,18 +33,11 @@ public class DogFactsService
             if (request.result == UnityWebRequest.Result.Success)
             {
                 var json = request.downloadHandler.text;
-                var response = JsonConvert.DeserializeObject<DogApiResponse>(json);
+                DogApiResponse response = JsonConvert.DeserializeObject<DogApiResponse>(json);
 
                 Debug.Log($"FetchDogFactsDataAsync: Parsed {response.Data.Count} breeds from the API.");
 
-                List<string> names = new List<string>();
-
-                for (int i = 0; i < response.Data.Count; i++)
-                {
-                    names.Add(response.Data[i].Attributes.Name);
-                }
-
-                return names;//response.Data;
+                return response;
             }
 
             // If request was not successful
@@ -65,7 +58,7 @@ public class DogFactsService
         }
     }
 
-    public async UniTask<List<string>> GetDogFactsDataViaRequestQueue()
+    public async UniTask<DogApiResponse> GetDogFactsDataViaRequestQueue()
     {
         var task = _requestsQueue.EnqueueRequest(FetchDogFactsDataAsync, RequestTag.DogFacts);
         var data = await task;
