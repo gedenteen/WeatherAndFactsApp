@@ -12,6 +12,7 @@ public class DogsInfoUiController : MonoBehaviour
     [SerializeField] private Transform _holderForViews;
     [SerializeField] private GameObject _popUpWithInfo;
     [SerializeField] private TextMeshProUGUI _textMeshOnPopUp;
+    [SerializeField] private LoadingScreen _loadingScreen;
 
     [Header("References to assets")]
     [SerializeField] private DogBreedView _prefabDogBreedView;
@@ -48,34 +49,39 @@ public class DogsInfoUiController : MonoBehaviour
 
     private async UniTask UpdateUi()
     {
+        _loadingScreen.gameObject.SetActive(true);
+
         DogApiResponse dogApiResponse = await _dogDataService.GetDogBreedsDataViaRequestQueue();
         _dogApiResponse = dogApiResponse;
 
         if (dogApiResponse == null)
         {
             Debug.LogError("DogsInfoUiController: can't get weather data");
-            return;
         }
-
-        List<string> breedsNames = new List<string>();
-
-        int i;
-        for (i = 0; i < dogApiResponse.Data.Count; i++)
+        else
         {
-            breedsNames.Add(dogApiResponse.Data[i].Attributes.Name);
-        }
+            List<string> breedsNames = new List<string>();
 
-        for (i = 0; i < breedsNames.Count; i++)
-        {
-            DogBreedView dogBreedView = GetDogBreedViewByIndex(i);
-            dogBreedView.SetData(i, breedsNames[i], this);
-        }
+            int i;
+            for (i = 0; i < dogApiResponse.Data.Count; i++)
+            {
+                breedsNames.Add(dogApiResponse.Data[i].Attributes.Name);
+            }
 
-        // Disable unused items
-        for (i++; i < _viewPool.Count; i++)
-        {
-            _viewPool[i].gameObject.SetActive(false);
+            for (i = 0; i < breedsNames.Count; i++)
+            {
+                DogBreedView dogBreedView = GetDogBreedViewByIndex(i);
+                dogBreedView.SetData(i, breedsNames[i], this);
+            }
+
+            // Disable unused items
+            for (i++; i < _viewPool.Count; i++)
+            {
+                _viewPool[i].gameObject.SetActive(false);
+            }
         }
+        
+        _loadingScreen.gameObject.SetActive(false);
     }
 
     private DogBreedView GetDogBreedViewByIndex(int index)
