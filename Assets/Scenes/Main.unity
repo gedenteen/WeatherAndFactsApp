@@ -658,6 +658,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &620629060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
+  m_PrefabInstance: {fileID: 2003084631880914132}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &779724417 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4786119610407474627, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
@@ -814,7 +819,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9195213402409591076, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
   m_PrefabInstance: {fileID: 2003084631880914132}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 620629060}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edcb45ce0cfb17341a9d8cb802269132, type: 3}
@@ -825,6 +830,19 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3606717702074227527, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
   m_PrefabInstance: {fileID: 2003084631880914132}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1081468231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620629060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93866e0a01ac73d4cafbec063e4c7610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _appState: 1
 --- !u!1 &1236855758
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +950,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9195213402409591076, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
   m_PrefabInstance: {fileID: 765783412338386339}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1701713641}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edcb45ce0cfb17341a9d8cb802269132, type: 3}
@@ -989,6 +1007,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1701713641 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
+  m_PrefabInstance: {fileID: 765783412338386339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1701713644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701713641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93866e0a01ac73d4cafbec063e4c7610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _appState: 2
 --- !u!224 &117027450910887087
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1098,13 +1134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802890816690267529, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: m_text
-      value: 'Tab 2
-
-'
+      value: Dog facts
       objectReference: {fileID: 0}
     - target: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: m_Name
-      value: TabButton (1)
+      value: TabButtonDogFacts
       objectReference: {fileID: 0}
     - target: {fileID: 9195213402409591076, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: _tabsController
@@ -1113,7 +1147,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1701713644}
   m_SourcePrefab: {fileID: 100100000, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
 --- !u!114 &1938312841644731051
 MonoBehaviour:
@@ -1231,13 +1268,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5802890816690267529, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: m_text
-      value: 'Tab 1
-
-'
+      value: Weather
       objectReference: {fileID: 0}
     - target: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: m_Name
-      value: TabButton
+      value: TabButtonWeather
       objectReference: {fileID: 0}
     - target: {fileID: 9195213402409591076, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
       propertyPath: _tabsController
@@ -1246,7 +1281,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8633438540501165899, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1081468231}
   m_SourcePrefab: {fileID: 100100000, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
 --- !u!224 &2307527201374813563
 RectTransform:

@@ -18,7 +18,7 @@ public class WeatherPeriodView : MonoBehaviour
         StartCoroutine(LoadIcon(weatherPeriod.Icon));
     }
 
-    private IEnumerator LoadIcon(string url)
+    private IEnumerator LoadIcon(string url) // TODO: make it via RequestsQueue
     {
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
