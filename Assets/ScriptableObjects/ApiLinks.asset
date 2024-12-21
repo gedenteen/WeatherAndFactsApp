@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cebb50025fa5440b8e1472de768e4e, type: 3}
   m_Name: ApiLinks
   m_EditorClassIdentifier: 
+  _weather: https://api.weather.gov/gridpoints/TOP/32,81/forecast
+  _dogFacts: https://dogapi.dog/api/v2/breeds

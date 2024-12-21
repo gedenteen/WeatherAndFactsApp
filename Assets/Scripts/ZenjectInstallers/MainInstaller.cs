@@ -10,5 +10,6 @@ public class MainInstaller : MonoInstaller
         Container.Bind<AppStateController>().AsSingle().WithArguments(initialState).NonLazy();
         Container.Bind<RequestsQueue>().AsSingle().NonLazy();
         Container.Bind<WeatherService>().AsSingle().NonLazy();
+        Container.Bind<DogFactsService>().AsSingle().NonLazy();
     }
 }
