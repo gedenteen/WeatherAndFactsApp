@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UniRx;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 using Zenject;
 
@@ -17,9 +16,8 @@ public class DogsInfoUiController : MonoBehaviour
     [Header("References to assets")]
     [SerializeField] private DogBreedView _prefabDogBreedView;
 
-    [Inject] private Timings _timings;
     [Inject] private AppStateController _appStateController;
-    [Inject] private DogFactsService _dogFactsService;
+    [Inject] private DogDataService _dogDataService;
     
     private CompositeDisposable _disposables = new CompositeDisposable();
     private List<DogBreedView> _viewPool = new List<DogBreedView>();
@@ -50,7 +48,7 @@ public class DogsInfoUiController : MonoBehaviour
 
     private async UniTask UpdateUi()
     {
-        DogApiResponse dogApiResponse = await _dogFactsService.GetDogFactsDataViaRequestQueue();
+        DogApiResponse dogApiResponse = await _dogDataService.GetDogBreedsDataViaRequestQueue();
         _dogApiResponse = dogApiResponse;
 
         if (dogApiResponse == null)
