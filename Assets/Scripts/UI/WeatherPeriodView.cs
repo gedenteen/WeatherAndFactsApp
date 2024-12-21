@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,26 +12,10 @@ public class WeatherPeriodView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _periodNameText;
     [SerializeField] private TextMeshProUGUI _temperatureText;
 
-    public void SetData(WeatherPeriod weatherPeriod)
+    public async UniTask SetData(WeatherPeriod weatherPeriod, WeatherDataService weatherDataService)
     {
         _periodNameText.text = weatherPeriod.Name;
-        _temperatureText.text = $"{weatherPeriod.Temperature}°F";
-        StartCoroutine(LoadIcon(weatherPeriod.Icon));
-    }
-
-    private IEnumerator LoadIcon(string url) // TODO: make it via RequestsQueue
-    {
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            Texture2D texture = DownloadHandlerTexture.GetContent(request);
-            _weatherIcon.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        }
-        else
-        {
-            Debug.LogError($"Failed to load weather icon: {request.error}");
-        }
+        _temperatureText.text = $"{weatherPeriod.Temperature}°{weatherPeriod.TemperatureUnit}";
+        _weatherIcon.sprite = await weatherDataService.GetIcon(weatherPeriod.Icon);
     }
 }

@@ -15,7 +15,7 @@ public class WeatherUiController : MonoBehaviour
 
     [Inject] private Timings _timings;
     [Inject] private AppStateController _appStateController;
-    [Inject] private WeatherService _weatherService;
+    [Inject] private WeatherDataService _weatherDataService;
 
     private CancellationTokenSource _cancellationTokenSource;
     private List<WeatherPeriodView> _viewPool = new List<WeatherPeriodView>();
@@ -49,7 +49,7 @@ public class WeatherUiController : MonoBehaviour
 
     private async UniTask UpdateUi()
     {
-        List<WeatherPeriod> weatherPeriods = await _weatherService.GetWeatherDataViaRequestQueue();
+        List<WeatherPeriod> weatherPeriods = await _weatherDataService.GetWeatherDataViaRequestQueue();
 
         if (weatherPeriods == null)
         {
@@ -64,7 +64,7 @@ public class WeatherUiController : MonoBehaviour
         for (i = 0; i < weatherPeriods.Count; i++)
         {
             WeatherPeriodView weatherPeriodView = GetWeatherPeriodViewByIndex(i);
-            _viewPool[i].SetData(weatherPeriods[i]);
+            _viewPool[i].SetData(weatherPeriods[i], _weatherDataService).Forget();
         }
 
         // Disable unused items
