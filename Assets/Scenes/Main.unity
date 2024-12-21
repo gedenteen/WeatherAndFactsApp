@@ -344,6 +344,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2582558042536053235, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582558042536053235, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -461,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8471681369649120514, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_text
-      value: Content 2
+      value: Facts about dogs
       objectReference: {fileID: 0}
     - target: {fileID: 8693289533955939589, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -480,7 +484,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3049655673608980545, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 1709665807995675896, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3336974599161886817, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3941007551923979396, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 7124377724146386486, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 4474990627492376630, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 9035620465581321789, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 7909572066610960885, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 2741598057706807663, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 9034044663074027447, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3149544708752529581, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 6754393038690728836, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 6848391068341077000, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
@@ -510,7 +527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &149965968
 Transform:
   m_ObjectHideFlags: 0
@@ -538,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b57fec801fdc642acce3b4364c916a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _apiLinks: {fileID: 0}
+  _weatherPeriodView: {fileID: 0}
 --- !u!1 &377339884 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4411171833663793621, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
@@ -719,6 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018722630}
   - component: {fileID: 1018722629}
+  - component: {fileID: 1018722631}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -740,7 +758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: 50cb7e72380f097438a8fdb60a52badf, type: 2}
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 1018722631}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -773,6 +792,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018722631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018722628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f2d50bf8282444994a0a5cd4f240dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1081468225 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9195213402409591076, guid: 9a517ab8b87128c40bc1ef6f589d4157, type: 3}
@@ -1561,6 +1592,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2582558042536053235, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582558042536053235, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1678,7 +1713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8471681369649120514, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_text
-      value: Content 1
+      value: Weather
       objectReference: {fileID: 0}
     - target: {fileID: 8693289533955939589, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1697,7 +1732,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3049655673608980545, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 1709665807995675896, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3336974599161886817, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3941007551923979396, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 7124377724146386486, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 4474990627492376630, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 9035620465581321789, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 7909572066610960885, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 2741598057706807663, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 9034044663074027447, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 3149544708752529581, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 6754393038690728836, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
+    - {fileID: 6848391068341077000, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 459eb21127edffd40b8462996cafea7f, type: 3}
