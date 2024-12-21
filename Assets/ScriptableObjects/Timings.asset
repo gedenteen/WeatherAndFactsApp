@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7325d7fac6aa04cba1976dfaed5873, type: 3}
-  m_Name: ConfigsInstaller
+  m_Script: {fileID: 11500000, guid: 17b60a4714eec9f4f9086b3596bc6f2e, type: 3}
+  m_Name: Timings
   m_EditorClassIdentifier: 
-  _apiLinks: {fileID: 11400000, guid: 1e7edb409caebad4fb7d152da2efd37f, type: 2}
-  _timings: {fileID: 11400000, guid: 013d36c04cd124b468cda2afb334a013, type: 2}
+  _secondsForUpdateWeatherData: 5
